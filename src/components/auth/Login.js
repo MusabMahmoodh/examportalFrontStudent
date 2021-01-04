@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router-dom";
+
 import { Form, Button, Card } from "react-bootstrap";
 import UserContext from "../../context/StudentContext.js";
 import * as api from "../../API/api.js";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   const [indexNo, setIndexNo] = useState("");
@@ -16,16 +18,36 @@ export default function Login() {
     try {
       const loginUser = { indexNo, password };
       const loginRes = await api.login(loginUser);
-      console.log(loginRes);
       setUserData({
         ...userData,
         token: loginRes.data.token,
         user: loginRes.data.user,
       });
-      localStorage.setItem("auth-token", loginRes.data.token);
-      login();
+      if (loginRes.status === 200) {
+        localStorage.setItem("auth-token", loginRes.data.token);
+        login();
+      } else {
+        console.log(loginRes.data);
+        toast.error(loginRes.data.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } catch (err) {
-      console.log(err);
+      toast.error("user not found or invalid credentials", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
   return (

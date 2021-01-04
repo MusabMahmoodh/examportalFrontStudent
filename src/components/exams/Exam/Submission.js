@@ -3,9 +3,15 @@ import { Form, Button } from "react-bootstrap";
 import FileBase from "react-file-base64";
 import * as api from "../../../API/api";
 import UserContext from "../../../context/StudentContext";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useHistory } from "react-router-dom";
+
 const Submission = ({ ex_id }) => {
   const [submission, setSubmission] = useState(null);
   const { userData } = useContext(UserContext);
+  let history = useHistory();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -18,9 +24,26 @@ const Submission = ({ ex_id }) => {
         userData.token
       );
       if (response.status === 201) {
-        console.log(response.data.message);
+        toast.success(response.data.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+
+          draggable: true,
+          progress: undefined,
+        });
+        history.push("/dashboard");
       } else {
-        console.log(response.data.message);
+        toast.error(response.data.message, {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+
+          draggable: true,
+          progress: undefined,
+        });
       }
 
       console.log(response);

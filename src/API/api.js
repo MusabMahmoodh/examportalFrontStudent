@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const studentUrl = "https://revisionclass.herokuapp.com/api/v1/students";
+const studentUrl =
+  "http://localhost:4000/api/v1/students" ||
+  "https://revisionclass.herokuapp.com/api/v1/students";
 
 export const login = (data) => axios.post(`${studentUrl}`, data);
 export const validate = (token) =>

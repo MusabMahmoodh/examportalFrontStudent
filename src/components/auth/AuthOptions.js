@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { BiLogOutCircle } from "react-icons/bi";
 import UserContext from "../../context/StudentContext.js";
 
 export default function AuthOptions() {
@@ -20,7 +21,13 @@ export default function AuthOptions() {
 
   return (
     <nav className="auth-options">
-      {isAuthenticated ? <button onClick={logoutUser}>Log out</button> : <></>}
+      {isAuthenticated ? (
+        <button onClick={logoutUser}>
+          <BiLogOutCircle />{" "}
+        </button>
+      ) : (
+        <></>
+      )}
     </nav>
   );
 }

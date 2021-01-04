@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
+
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
 } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./ProtectedRoute.js";
 import * as api from "./API/api.js";
 import Header from "./components/layout/Header";
@@ -16,7 +19,7 @@ import TryQuestion from "./routes/TryQuestion";
 import Login from "./components/auth/Login";
 
 import UserContext from "./context/StudentContext.js";
-
+toast.configure();
 export default function App() {
   const [userData, setUserData] = useState({
     token: undefined,

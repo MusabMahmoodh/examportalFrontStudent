@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Navbar, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { FaPeriscope } from "react-icons/fa";
 import AuthOptions from "../auth/AuthOptions";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/StudentContext.js";
@@ -16,15 +16,16 @@ export default function Header() {
       className="mb-3"
     >
       <Navbar.Brand onClick={() => history.push("/dashboard")}>
-        ProgressBook
+        <FaPeriscope style={{ marginRight: "2px" }} />
+        Quiz master
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         {userData.user ? (
           <Nav className="mr-auto">
-            <Nav.Link onClick={() => history.push("/exams")}>Exams</Nav.Link>
-            <Nav.Link onClick={() => history.push("/subscriptions")}>
-              Subscriptions
+            <Nav.Link>My performance</Nav.Link>
+            <Nav.Link onClick={() => history.push("/dashboard")}>
+              My Subscriptions
             </Nav.Link>
           </Nav>
         ) : (
