@@ -17,6 +17,11 @@ const Submission = ({ ex_id }) => {
         newSubmission,
         userData.token
       );
+      if (response.status === 201) {
+        console.log(response.data.message);
+      } else {
+        console.log(response.data.message);
+      }
 
       console.log(response);
     } catch (error) {
