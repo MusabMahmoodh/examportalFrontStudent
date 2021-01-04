@@ -4,7 +4,6 @@ import {
   Route,
   Switch,
   Redirect,
-  Link,
 } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.js";
 import * as api from "./API/api.js";
@@ -23,6 +22,7 @@ export default function App() {
     token: undefined,
     user: undefined,
   });
+
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [subscriptions, setSubscriptions] = useState([]);
   const login = () => {
@@ -67,6 +67,7 @@ export default function App() {
             isAuthenticated,
             subscriptions,
             setSubscriptions,
+            login,
           }}
         >
           <Header />

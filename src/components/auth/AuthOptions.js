@@ -3,22 +3,24 @@ import { useHistory } from "react-router-dom";
 import UserContext from "../../context/StudentContext.js";
 
 export default function AuthOptions() {
-  const { userData, setUserData } = useContext(UserContext);
+  const { isAuthenticated, setUserData, logout } = useContext(UserContext);
 
   const history = useHistory();
 
   const login = () => history.push("/login");
-  const logout = () => {
+  const logoutUser = () => {
     setUserData({
       token: undefined,
       user: undefined,
     });
     localStorage.setItem("auth-token", "");
+    logout();
+    history.push("/");
   };
 
   return (
     <nav className="auth-options">
-      {userData.user ? <button onClick={logout}>Log out</button> : <></>}
+      {isAuthenticated ? <button onClick={logoutUser}>Log out</button> : <></>}
     </nav>
   );
 }

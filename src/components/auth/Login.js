@@ -8,12 +8,11 @@ export default function Login() {
   const [indexNo, setIndexNo] = useState("");
   const [password, setPassword] = useState("");
 
-  const { userData, setUserData } = useContext(UserContext);
-  const history = useHistory();
+  const { userData, setUserData, login } = useContext(UserContext);
 
   const submit = async (e) => {
     e.preventDefault();
-    console.log("submitted");
+
     try {
       const loginUser = { indexNo, password };
       const loginRes = await api.login(loginUser);
@@ -24,8 +23,7 @@ export default function Login() {
         user: loginRes.data.user,
       });
       localStorage.setItem("auth-token", loginRes.data.token);
-      console.log("here");
-      history.push("/dashboard");
+      login();
     } catch (err) {
       console.log(err);
     }
