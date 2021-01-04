@@ -52,7 +52,7 @@ export default function Login() {
   };
   return (
     <div className="container">
-      <Card>
+      <Card styles={{ maxWidth: "60px" }}>
         <Card.Header>Login</Card.Header>
         <Card.Body>
           <Form>
