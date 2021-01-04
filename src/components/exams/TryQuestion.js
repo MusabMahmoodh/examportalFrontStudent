@@ -1,12 +1,13 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
-
-import Question from "./Question/Question";
-import AddMarks from "./Question/AddMarks";
+import { useHistory } from "react-router-dom";
+import moment from "moment";
 const TryQuestion = ({ questions }) => {
   const timeChange = (time) => {
     return time.toLocaleString().replace("Z", "").replace("T", " ");
   };
+  let history = useHistory();
+
   return (
     <>
       {questions &&
@@ -17,11 +18,25 @@ const TryQuestion = ({ questions }) => {
               <Card.Text>
                 Start time :{timeChange(ess.start_time)}
                 <br /> End time: {timeChange(ess.end_time)} <br />
-                Duration: {ess.interval[0].hour}hours {ess.interval[0].minutes}
+                Prefered Duration: {ess.interval[0].hour}hours{" "}
+                {ess.interval[0].minutes}
                 minutes
               </Card.Text>
               <Card.Title>{ess.description}</Card.Title>
-              <Button variant="warning">Attempt</Button>
+              {moment().format() < ess.start_time ? (
+                <Button variant="danger" disabled>
+                  Question will be posted soon
+                </Button>
+              ) : (
+                <Button
+                  variant="warning"
+                  onClick={() =>
+                    history.push(`/subscription/${ess._id}/question`)
+                  }
+                >
+                  Attempt
+                </Button>
+              )}
             </Card.Body>
           </Card>
         ))}

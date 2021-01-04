@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Tabs, Tab } from "react-bootstrap";
+import { Tabs, Tab, Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import Question from "../components/exams/Exam/Question";
 import Submission from "../components/exams/Exam/Submission";
+import Solution from "../components/exams/Exam/Solution";
 import * as api from "../API/api";
 import UserContext from "../context/StudentContext";
-const ExamPaper = ({ essays }) => {
+
+import moment from "moment";
+const ExamPaper = () => {
   const { id } = useParams();
   const [exam, setExam] = useState([]);
   const { userData } = useContext(UserContext);
@@ -26,9 +29,19 @@ const ExamPaper = ({ essays }) => {
         <Question exam={exam} />{" "}
       </Tab>
       <Tab eventKey="profile" title="Submission">
-        <Submission ex_id={exam._id} />{" "}
+        {moment().format() < exam.end_time ? (
+          <Submission ex_id={exam._id} />
+        ) : (
+          <Alert variant="danger">Exam has been ended</Alert>
+        )}
       </Tab>
-      <Tab eventKey="contact" title="Solution" disabled></Tab>
+      <Tab eventKey="contact" title="Solution">
+        {moment().format() > exam.end_time ? (
+          <Solution exam={exam} />
+        ) : (
+          <Alert variant="danger">Solutions are not currently avaialble</Alert>
+        )}
+      </Tab>
     </Tabs>
   );
 };
