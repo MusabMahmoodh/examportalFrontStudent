@@ -5,14 +5,22 @@ import UserContext from "../../context/StudentContext.js";
 import * as api from "../../API/api.js";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { BeatLoader } from "react-spinners";
+import { css } from "@emotion/react";
 
 export default function Login() {
   const [indexNo, setIndexNo] = useState("");
   const [password, setPassword] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const { userData, setUserData, login } = useContext(UserContext);
-
+  const override = css`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -4em;
+  `;
   const submit = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     try {
@@ -25,9 +33,11 @@ export default function Login() {
       });
       if (loginRes.status === 200) {
         localStorage.setItem("auth-token", loginRes.data.token);
+        setLoading(false);
         login();
       } else {
         console.log(loginRes.data);
+        setLoading(false);
         toast.error(loginRes.data.message, {
           position: "top-center",
           autoClose: 5000,
@@ -39,6 +49,7 @@ export default function Login() {
         });
       }
     } catch (err) {
+      setLoading(false);
       toast.error("user not found or invalid credentials", {
         position: "top-center",
         autoClose: 5000,
@@ -82,6 +93,7 @@ export default function Login() {
           </Form>
         </Card.Body>
       </Card>
+      <BeatLoader loading={loading} size={24} color="orange" css={override} />
     </div>
   );
 }

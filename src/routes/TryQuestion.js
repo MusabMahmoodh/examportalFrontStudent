@@ -8,13 +8,15 @@ import Solution from "../components/exams/Exam/Solution";
 import { css } from "@emotion/react";
 import * as api from "../API/api";
 import UserContext from "../context/StudentContext";
-
+import timeDifferent from "../components/utils/timeDifferent";
 import moment from "moment";
+
 const TryQuestion = () => {
   const { id } = useParams();
   const [exam, setExam] = useState([]);
   const { userData } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(0);
   const override = css`
     position: absolute;
     top: 50%;
@@ -26,6 +28,7 @@ const TryQuestion = () => {
       try {
         const response = await api.fetchExam(id, userData.token);
         setExam(response.data);
+        setTimeLeft(timeDifferent(response.data.end_time));
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -33,8 +36,18 @@ const TryQuestion = () => {
     };
     fetchData();
   }, []);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeLeft(timeDifferent(exam.end_time));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timeLeft]);
   return (
     <>
+      <h3>
+        Time left:{"  "}
+        {timeLeft}{" "}
+      </h3>
       <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
         <Tab eventKey="home" title="Question">
           <Question exam={exam} />{" "}

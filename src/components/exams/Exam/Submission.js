@@ -6,14 +6,37 @@ import UserContext from "../../../context/StudentContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useHistory } from "react-router-dom";
+import { BeatLoader } from "react-spinners";
+import { css } from "@emotion/react";
+import moment from "moment";
 
-const Submission = ({ ex_id }) => {
+const Submission = ({ ex_id, endTime }) => {
   const [submission, setSubmission] = useState(null);
   const { userData } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   let history = useHistory();
 
+  const override = css`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -4em;
+  `;
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (moment().format() > endTime) {
+      toast.success("Time is over", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+
+        draggable: true,
+        progress: undefined,
+      });
+      history.push("/dashboard");
+    }
+    setLoading(true);
     try {
       const newSubmission = {
         submission,
@@ -23,6 +46,7 @@ const Submission = ({ ex_id }) => {
         newSubmission,
         userData.token
       );
+      setLoading(false);
       if (response.status === 201) {
         toast.success(response.data.message, {
           position: "top-center",
@@ -46,31 +70,43 @@ const Submission = ({ ex_id }) => {
         });
       }
 
-      console.log(response);
+      // console.log(response);
     } catch (error) {
-      console.log(error);
+      toast.error("submission failed", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
   return (
-    <Form.Group controlId="exampleForm.ControlInput1">
-      <Form.Label>Submit your answers</Form.Label>
-      <br />
-      <FileBase
-        type="file"
-        multiple={false}
-        accept=".pdf,.jpeg,.png"
-        onDone={(base64) => setSubmission(base64)}
-      />
-      <Button
-        className="secondary"
-        size="lg"
-        type="submit"
-        onClick={handleSubmit}
-        block
-      >
-        Submit
-      </Button>
-    </Form.Group>
+    <>
+      <Form.Group controlId="exampleForm.ControlInput1">
+        <Form.Label>Submit your answers</Form.Label>
+        <br />
+        <FileBase
+          type="file"
+          multiple={false}
+          accept=".pdf,.jpeg,.png"
+          onDone={(base64) => setSubmission(base64)}
+        />
+        <br />
+        <Button
+          className="secondary"
+          size="sm"
+          type="submit"
+          onClick={handleSubmit}
+          block
+        >
+          Submit
+        </Button>
+      </Form.Group>
+      <BeatLoader loading={loading} size={24} color="orange" css={override} />
+    </>
   );
 };
 

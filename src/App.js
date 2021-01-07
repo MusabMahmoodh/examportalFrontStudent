@@ -10,6 +10,8 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ProtectedRoute from "./ProtectedRoute.js";
 import * as api from "./API/api.js";
+import { PropagateLoader } from "react-spinners";
+import { css } from "@emotion/react";
 import Header from "./components/layout/Header";
 
 import Subscription from "./routes/Subscription";
@@ -28,6 +30,7 @@ export default function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [subscriptions, setSubscriptions] = useState([]);
+  const [loading, setLoading] = useState(true);
   const login = () => {
     setIsAuthenticated(true);
   };
@@ -35,6 +38,12 @@ export default function App() {
   const logout = () => {
     setIsAuthenticated(false);
   };
+  const override = css`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -4em;
+  `;
   useEffect(() => {
     const checkLoggedIn = async () => {
       let token = localStorage.getItem("auth-token");
@@ -51,8 +60,10 @@ export default function App() {
           token,
           user: userRes.data._id,
         });
+        setLoading(false);
         login();
       }
+      setLoading(false);
     };
 
     checkLoggedIn();
@@ -124,6 +135,12 @@ export default function App() {
           </div>
         </UserContext.Provider>
       </Router>
+      <PropagateLoader
+        loading={loading}
+        size={24}
+        color="orange"
+        css={override}
+      />
     </>
   );
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { Card, Button } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import moment from "moment";
+
 const TryQuestion = ({ questions }) => {
   const timeChange = (time) => {
     return time.toLocaleString().replace("Z", "").replace("T", " ");
@@ -12,7 +13,7 @@ const TryQuestion = ({ questions }) => {
     <>
       {questions &&
         questions.map((ess) => (
-          <Card>
+          <Card key={ess._id}>
             <Card.Header>{ess.name}</Card.Header>
             <Card.Body>
               <Card.Text>

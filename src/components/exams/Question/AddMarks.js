@@ -73,7 +73,7 @@ const AddMarks = ({ ex_id }) => {
       </Form.Row>
       <Button
         className="secondary"
-        size="lg"
+        size="sm"
         type="submit"
         // onClick={handleSubmit}
         block
