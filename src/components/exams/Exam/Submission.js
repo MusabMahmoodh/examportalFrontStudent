@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import FileBase from "react-file-base64";
 import * as api from "../../../API/api";
@@ -14,6 +14,7 @@ const Submission = ({ ex_id, endTime }) => {
   const [submission, setSubmission] = useState(null);
   const { userData } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
+  const [attempted, setAttempted] = useState(false);
   let history = useHistory();
 
   const override = css`
@@ -22,6 +23,24 @@ const Submission = ({ ex_id, endTime }) => {
     left: 50%;
     margin-left: -4em;
   `;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await api.examAttemptReq(ex_id, userData.token);
+        console.log(response);
+        if (response.data.isAttempted) {
+          setAttempted(true);
+        }
+
+        setLoading(false);
+        // setSubscriptions(response.data[0].subscriptions);
+      } catch (error) {
+        setLoading(false);
+        return <h1>Network error</h1>;
+      }
+    };
+    fetchData();
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (moment().format() > endTime) {
@@ -85,26 +104,31 @@ const Submission = ({ ex_id, endTime }) => {
   };
   return (
     <>
-      <Form.Group controlId="exampleForm.ControlInput1">
-        <Form.Label>Submit your answers</Form.Label>
-        <br />
-        <FileBase
-          type="file"
-          multiple={false}
-          accept=".pdf,.jpeg,.png"
-          onDone={(base64) => setSubmission(base64)}
-        />
-        <br />
-        <Button
-          className="secondary"
-          size="sm"
-          type="submit"
-          onClick={handleSubmit}
-          block
-        >
-          Submit
-        </Button>
-      </Form.Group>
+      {attempted ? (
+        <h5>Already submitted</h5>
+      ) : (
+        <Form.Group controlId="exampleForm.ControlInput1">
+          <Form.Label>Submit your answers</Form.Label>
+          <br />
+          <FileBase
+            type="file"
+            multiple={false}
+            accept=".pdf,.jpeg,.png"
+            onDone={(base64) => setSubmission(base64)}
+          />
+          <br />
+          <Button
+            className="secondary"
+            size="sm"
+            type="submit"
+            onClick={handleSubmit}
+            block
+          >
+            Submit
+          </Button>
+        </Form.Group>
+      )}
+
       <BeatLoader loading={loading} size={24} color="orange" css={override} />
     </>
   );

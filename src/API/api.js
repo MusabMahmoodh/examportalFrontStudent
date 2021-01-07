@@ -26,6 +26,10 @@ export const submitAnswers = (id, updatedSubmission, token) =>
   axios.put(`${studentUrl}/exams_essay/${id}`, updatedSubmission, {
     headers: { "x-auth-token": token },
   });
+export const submitScores = (id, updatedSubmission, token) =>
+  axios.put(`${studentUrl}/exams_essay/${id}/scores`, updatedSubmission, {
+    headers: { "x-auth-token": token },
+  });
 export const examAttemptReq = (id, token) =>
   axios.get(`${studentUrl}/exams_essay/${id}/submission`, {
     headers: { "x-auth-token": token },
