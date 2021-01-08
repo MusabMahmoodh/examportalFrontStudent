@@ -21,7 +21,7 @@ const Subscriptions = () => {
         setSubscriptions(response.data[0].subscriptions);
         setLoading(false);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     fetchData();
@@ -29,7 +29,7 @@ const Subscriptions = () => {
   return (
     <div>
       <Row>
-        {console.log(subscriptions)}
+        {/* {console.log(subscriptions)} */}
         {subscriptions &&
           subscriptions.map((sub) => (
             <Col xs={12} md={4}>

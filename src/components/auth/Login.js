@@ -36,7 +36,7 @@ export default function Login() {
         setLoading(false);
         login();
       } else {
-        console.log(loginRes.data);
+        // console.log(loginRes.data);
         setLoading(false);
         toast.error(loginRes.data.message, {
           position: "top-center",

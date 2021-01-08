@@ -24,8 +24,8 @@ const ExamsAndQuestions = () => {
     const fetchData = async () => {
       try {
         const response = await api.fetchExams(id, userData.token);
-        console.log(response.data);
-        console.log(response.data);
+        // console.log(response.data);
+        // console.log(response.data);
         setExams(response.data);
         setLoading(false);
         // setSubscriptions(response.data[0].subscriptions);

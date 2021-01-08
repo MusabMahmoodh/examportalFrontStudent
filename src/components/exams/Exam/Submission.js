@@ -27,7 +27,7 @@ const Submission = ({ ex_id, endTime }) => {
     const fetchData = async () => {
       try {
         const response = await api.examAttemptReq(ex_id, userData.token);
-        console.log(response);
+        // console.log(response);
         if (response.data.isAttempted) {
           setAttempted(true);
         }
