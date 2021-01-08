@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const studentUrl ="https://revisionclass.herokuapp.com/api/v1/students";
+const studentUrl =
+  "http://localhost:4000/api/v1/students" ||
+  "https://revisionclass.herokuapp.com/api/v1/students";
 
 export const login = (data) => axios.post(`${studentUrl}`, data);
 export const validate = (token) =>
@@ -26,6 +28,10 @@ export const submitAnswers = (id, updatedSubmission, token) =>
   });
 export const submitScores = (id, updatedSubmission, token) =>
   axios.put(`${studentUrl}/exams_essay/${id}/scores`, updatedSubmission, {
+    headers: { "x-auth-token": token },
+  });
+export const seeMarks = (token) =>
+  axios.get(`${studentUrl}/scores`, {
     headers: { "x-auth-token": token },
   });
 export const examAttemptReq = (id, token) =>

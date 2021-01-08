@@ -18,6 +18,7 @@ import Subscription from "./routes/Subscription";
 import ExamPaper from "./routes/ExamPaper";
 import Dashboard from "./routes/Dashboard";
 import TryQuestion from "./routes/TryQuestion";
+import SeeScores from "./routes/SeeScores";
 import Login from "./components/auth/Login";
 
 import UserContext from "./context/StudentContext.js";
@@ -65,7 +66,7 @@ export default function App() {
       }
       setLoading(false);
     };
-
+    setLoading(false);
     checkLoggedIn();
   }, []);
 
@@ -103,6 +104,13 @@ export default function App() {
                 path="/dashboard"
                 logout={logout}
                 component={Dashboard}
+              />
+              <ProtectedRoute
+                exact
+                isAuthenticated={isAuthenticated}
+                path="/scores"
+                logout={logout}
+                component={SeeScores}
               />
               <ProtectedRoute
                 exact

@@ -14,6 +14,7 @@ export default function Header() {
       bg="dark"
       variant="dark"
       className="mb-3"
+      sticky="top"
     >
       <Navbar.Brand onClick={() => history.push("/dashboard")}>
         <FaPeriscope style={{ marginRight: "2px" }} />
@@ -23,7 +24,9 @@ export default function Header() {
       <Navbar.Collapse id="responsive-navbar-nav">
         {userData.user ? (
           <Nav className="mr-auto">
-            <Nav.Link>My performance</Nav.Link>
+            <Nav.Link onClick={() => history.push("/scores")}>
+              My scores
+            </Nav.Link>
             <Nav.Link onClick={() => history.push("/dashboard")}>
               My Subscriptions
             </Nav.Link>
