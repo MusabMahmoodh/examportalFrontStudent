@@ -1,46 +1,110 @@
 import React, { useContext } from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import { FaPeriscope } from "react-icons/fa";
+
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+
 import AuthOptions from "../auth/AuthOptions";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/StudentContext.js";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(1),
+  },
+  title: {
+    flexGrow: 1,
+    color: "white",
+  },
+}));
+
 export default function Header() {
   let history = useHistory();
+
+  const classes = useStyles();
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const { userData, setUserData } = useContext(UserContext);
   return (
-    <Navbar
-      collapseOnSelect
-      expand="lg"
-      bg="dark"
-      variant="dark"
-      className="mb-3"
-      sticky="top"
-    >
-      <Navbar.Brand onClick={() => history.push("/dashboard")}>
-        <FaPeriscope style={{ marginRight: "2px" }} />
-        Quiz master
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        {userData.user ? (
-          <Nav className="mr-auto">
-            <Nav.Link onClick={() => history.push("/scores")}>
-              My scores
-            </Nav.Link>
-            <Nav.Link onClick={() => history.push("/dashboard")}>
-              My Subscriptions
-            </Nav.Link>
-          </Nav>
-        ) : (
-          <div></div>
-        )}
+    <div className={classes.root}>
+      <AppBar position="static" style={{ background: "#000000" }}>
+        <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuBookIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Quiz master
+          </Typography>
+          <AuthOptions />
+          {userData.user && (
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={() => history.push("/scores")}>
+                  My performance
+                </MenuItem>
+                <MenuItem onClick={() => history.push("/dashboard")}>
+                  {" "}
+                  My Subscriptions
+                </MenuItem>
 
-        <Nav>
-          <Nav.Link>
-            <AuthOptions />
-          </Nav.Link>
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
+                <MenuItem onClick={handleClose}>Close</MenuItem>
+              </Menu>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 }

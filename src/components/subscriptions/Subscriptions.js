@@ -1,13 +1,23 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Row, Col } from "react-bootstrap";
+
 import { BeatLoader } from "react-spinners";
 import * as api from "../../API/api";
 import SubscriptionCard from "./SubscriptionCard";
 import { css } from "@emotion/react";
+import { makeStyles } from "@material-ui/core/styles";
+
+import Grid from "@material-ui/core/Grid";
 import UserContext from "../../context/StudentContext";
+import colorChange from "../utils/randomColor";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+}));
 const Subscriptions = () => {
   const { subscriptions, setSubscriptions, userData } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
+  const classes = useStyles();
   const override = css`
     position: absolute;
     top: 50%;
@@ -27,16 +37,19 @@ const Subscriptions = () => {
     fetchData();
   }, []);
   return (
-    <div>
-      <Row>
+    <div className={classes.root} style={{ marginBottom: "30px" }}>
+      <Grid container spacing={3}>
         {/* {console.log(subscriptions)} */}
         {subscriptions &&
           subscriptions.map((sub) => (
-            <Col xs={12} md={4}>
-              <SubscriptionCard subscription={sub} />
-            </Col>
+            <Grid item xs={12} sm={6}>
+              <SubscriptionCard
+                subscription={sub}
+                colorChange={() => colorChange}
+              />
+            </Grid>
           ))}
-      </Row>
+      </Grid>
       <BeatLoader loading={loading} size={24} color="green" css={override} />
     </div>
   );

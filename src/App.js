@@ -13,7 +13,7 @@ import * as api from "./API/api.js";
 import { PropagateLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import Header from "./components/layout/Header";
-
+import Container from "@material-ui/core/Container";
 import Subscription from "./routes/Subscription";
 import ExamPaper from "./routes/ExamPaper";
 import Dashboard from "./routes/Dashboard";
@@ -21,8 +21,24 @@ import TryQuestion from "./routes/TryQuestion";
 import SeeScores from "./routes/SeeScores";
 import Login from "./components/auth/Login";
 
+import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
 import UserContext from "./context/StudentContext.js";
 toast.configure();
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://t.me/joinchat/TFfuiWqnwjRWqofG ">
+        Quiz masters
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
+
 export default function App() {
   const [userData, setUserData] = useState({
     token: undefined,
@@ -86,7 +102,11 @@ export default function App() {
           }}
         >
           <Header />
-          <div className="container">
+
+          <Container
+            maxWidth="sm"
+            style={{ marginTop: "20px", minHeight: "90vh" }}
+          >
             <Switch>
               {/* First route */}
               <Route path="/" exact>
@@ -140,7 +160,8 @@ export default function App() {
                 <div>404 Not found </div>
               </Route>
             </Switch>
-          </div>
+          </Container>
+          <Copyright />
         </UserContext.Provider>
       </Router>
       <PropagateLoader
