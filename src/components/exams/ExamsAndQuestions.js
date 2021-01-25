@@ -26,7 +26,7 @@ const ExamsAndQuestions = () => {
         const response = await api.fetchExams(id, userData.token);
         // console.log(response.data);
         // console.log(response.data);
-        setExams(response.data);
+        setExams(response.data.reverse());
         setLoading(false);
         // setSubscriptions(response.data[0].subscriptions);
       } catch (error) {

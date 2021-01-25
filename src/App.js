@@ -105,7 +105,7 @@ export default function App() {
 
           <Container
             maxWidth="sm"
-            style={{ marginTop: "20px", minHeight: "90vh" }}
+            style={{ marginTop: "20px", minHeight: "75vh" }}
           >
             <Switch>
               {/* First route */}
