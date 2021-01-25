@@ -7,6 +7,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import TimelineIcon from "@material-ui/icons/Timeline";
 
 import Typography from "@material-ui/core/Typography";
 import ForwardIcon from "@material-ui/icons/Forward";
@@ -78,7 +79,10 @@ const SubscriptionCard = ({ subscription }) => {
               margin: "0",
             }}
           >
-            <IconButton aria-label="delete">
+            <IconButton aria-label="progress">
+              <TimelineIcon />
+            </IconButton>
+            <IconButton aria-label="mark">
               <FavoriteBorderIcon />
             </IconButton>
             <IconButton

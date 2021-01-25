@@ -7,10 +7,12 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
+import CloseIcon from "@material-ui/icons/Close";
 
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-
+import CardMembershipIcon from "@material-ui/icons/CardMembership";
+import EqualizerIcon from "@material-ui/icons/Equalizer";
 import AuthOptions from "../auth/AuthOptions";
 import { useHistory } from "react-router-dom";
 import UserContext from "../../context/StudentContext.js";
@@ -51,7 +53,10 @@ export default function Header() {
   const { userData, setUserData } = useContext(UserContext);
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ background: "#000000", height:"10vh" }}>
+      <AppBar
+        position="static"
+        style={{ background: "#000000", padding: "1em" }}
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -73,6 +78,7 @@ export default function Header() {
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
+                style={{ marginLeft: "5px" }}
               >
                 <MenuIcon />
               </IconButton>
@@ -92,14 +98,17 @@ export default function Header() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={() => history.push("/scores")}>
-                  My performance
+                  <EqualizerIcon style={{ marginRight: "1.8px" }} /> My
+                  performance
                 </MenuItem>
                 <MenuItem onClick={() => history.push("/dashboard")}>
-                  {" "}
-                  My Subscriptions
+                  <CardMembershipIcon style={{ marginRight: "1.8px" }} /> My
+                  Subscriptions
                 </MenuItem>
 
-                <MenuItem onClick={handleClose}>Close</MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <CloseIcon style={{ margin: "auto" }} />{" "}
+                </MenuItem>
               </Menu>
             </div>
           )}
