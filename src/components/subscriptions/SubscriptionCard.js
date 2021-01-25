@@ -7,8 +7,12 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
+
 import Typography from "@material-ui/core/Typography";
+import ForwardIcon from "@material-ui/icons/Forward";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles({
   root: {
@@ -18,12 +22,20 @@ const useStyles = makeStyles({
     height: 140,
   },
 });
+const useStylesButtons = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(0.01),
+    },
+  },
+}));
 function colorChange() {
   return "#" + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6);
 }
 const SubscriptionCard = ({ subscription }) => {
   let history = useHistory();
   const classes = useStyles();
+  const btnClasses = useStylesButtons();
   return (
     <Card className={classes.root} style={{ margin: "auto" }}>
       <CardActionArea>
@@ -50,14 +62,34 @@ const SubscriptionCard = ({ subscription }) => {
           </Typography>
         </CardContent>
       </CardActionArea>
+      <Divider />
       <CardActions>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => history.push(`/subscription/${subscription._id}`)}
+        <div
+          className={btnClasses.root}
+          style={{
+            float: "right",
+            width: "100%",
+            margin: "0",
+          }}
         >
-          Go
-        </Button>
+          <div
+            style={{
+              float: "right",
+              margin: "0",
+            }}
+          >
+            <IconButton aria-label="delete">
+              <FavoriteBorderIcon />
+            </IconButton>
+            <IconButton
+              aria-label="go"
+              color="primary"
+              onClick={() => history.push(`/subscription/${subscription._id}`)}
+            >
+              <ForwardIcon />
+            </IconButton>
+          </div>
+        </div>
       </CardActions>
     </Card>
   );

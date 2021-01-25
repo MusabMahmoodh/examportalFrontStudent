@@ -28,7 +28,7 @@ const Subscriptions = () => {
     const fetchData = async () => {
       try {
         const response = await api.fetchSubscriptions(userData.token);
-        setSubscriptions(response.data[0].subscriptions);
+        setSubscriptions(response.data[0].subscriptions.reverse());
         setLoading(false);
       } catch (error) {
         // console.log(error);

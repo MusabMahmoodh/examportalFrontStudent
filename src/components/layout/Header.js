@@ -51,7 +51,7 @@ export default function Header() {
   const { userData, setUserData } = useContext(UserContext);
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{ background: "#000000" }}>
+      <AppBar position="static" style={{ background: "#000000", height:"10vh" }}>
         <Toolbar>
           <IconButton
             edge="start"
