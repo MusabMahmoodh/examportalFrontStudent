@@ -38,7 +38,11 @@ const SubscriptionCard = ({ subscription }) => {
   const classes = useStyles();
   const btnClasses = useStylesButtons();
   return (
-    <Card className={classes.root} style={{ margin: "auto" }}>
+    <Card
+      className={classes.root}
+      style={{ margin: "auto" }}
+      onClick={() => history.push(`/subscription/${subscription._id}`)}
+    >
       <CardActionArea>
         <CardMedia
           className={classes.media}
@@ -58,7 +62,7 @@ const SubscriptionCard = ({ subscription }) => {
       </CardActionArea>
       <CardActionArea>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h5" component="h4">
             {subscription.name}
           </Typography>
         </CardContent>

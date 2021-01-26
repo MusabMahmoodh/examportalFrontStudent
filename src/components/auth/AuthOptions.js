@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { BiLogOutCircle } from "react-icons/bi";
+import NotificationHandler from "../layout/HeaderComps/NotificationHandler";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import UserContext from "../../context/StudentContext.js";
 
@@ -23,7 +23,14 @@ export default function AuthOptions() {
   return (
     <nav className="auth-options">
       {isAuthenticated ? (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <NotificationHandler />
           <ExitToAppIcon onClick={logoutUser} />{" "}
         </div>
       ) : (

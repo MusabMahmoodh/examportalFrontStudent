@@ -202,7 +202,12 @@ export default function Login() {
                 href="https://t.me/joinchat/TFfuiWqnwjRWqofG"
                 variant="body2"
               >
-                <TelegramIcon />
+                <TelegramIcon
+                  style={{
+                    float: "right",
+                    marginRight: "10px",
+                  }}
+                />
               </Link>
             </Grid>
             <Grid item>

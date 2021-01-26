@@ -109,10 +109,7 @@ export default function App() {
           >
             <Header />
 
-            <Container
-              maxWidth="sm"
-              style={{ marginTop: "20px", minHeight: "75vh" }}
-            >
+            <Container maxWidth="sm">
               <Switch>
                 {/* First route */}
                 <Route path="/" exact>
@@ -167,7 +164,7 @@ export default function App() {
                 </Route>
               </Switch>
             </Container>
-            <Copyright />
+            <Copyright style={{ position: "absolute", bottom: "0" }} />
           </UserContext.Provider>
         </Router>
       ) : (

@@ -6,7 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import MenuBookIcon from "@material-ui/icons/MenuBook";
+
 import CloseIcon from "@material-ui/icons/Close";
 import Logo from "../layout/Logo";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -54,8 +54,13 @@ export default function Header() {
   return (
     <div className={classes.root}>
       <AppBar
-        position="static"
-        style={{ background: "#000000", padding: "1em" }}
+        style={{
+          background: "#000000",
+          padding: "1em",
+          marginBottom: "20px",
+          position: "sticky",
+          top: "0",
+        }}
       >
         <Toolbar>
           <IconButton
