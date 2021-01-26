@@ -8,7 +8,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
 import CloseIcon from "@material-ui/icons/Close";
-
+import Logo from "../layout/Logo";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import CardMembershipIcon from "@material-ui/icons/CardMembership";
@@ -64,10 +64,10 @@ export default function Header() {
             color="inherit"
             aria-label="menu"
           >
-            <MenuBookIcon />
+            <Logo />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            Quiz master
+            QUIZ MASTERS
           </Typography>
           <AuthOptions />
           {userData.user && (
