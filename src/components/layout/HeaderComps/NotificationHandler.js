@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NotificationHandler() {
   const classes = useStyles();
-  const [notifications, setNotifications] = useState(["mm"]);
+  const [notifications, setNotifications] = useState([]);
 
   return (
     <div className={classes.root}>

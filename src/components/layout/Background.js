@@ -1,5 +1,7 @@
 import React from "react";
-
+import waveTop from "../../assets/wave-top-min.png";
+import waveMid from "../../assets/wave-mid-min.png";
+import waveBot from "../../assets/wave-bot-min.png";
 const Background = () => {
   return (
     <div className="waveWrapper waveAnimation">
@@ -7,8 +9,7 @@ const Background = () => {
         <div
           className="wave waveTop"
           style={{
-            backgroundImage:
-              "url('http://front-end-noobs.com/jecko/img/wave-top.png')",
+            backgroundImage: "url(" + waveTop + ")",
           }}
         ></div>
       </div>
@@ -16,8 +17,7 @@ const Background = () => {
         <div
           className="wave waveMiddle"
           style={{
-            backgroundImage:
-              "url('http://front-end-noobs.com/jecko/img/wave-mid.png')",
+            backgroundImage: "url(" + waveMid + ")",
           }}
         ></div>
       </div>
@@ -25,8 +25,7 @@ const Background = () => {
         <div
           className="wave waveBottom"
           style={{
-            backgroundImage:
-              "url('http://front-end-noobs.com/jecko/img/wave-bot.png')",
+            backgroundImage: "url(" + waveBot + ")",
           }}
         ></div>
       </div>
