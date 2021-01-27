@@ -36,7 +36,7 @@ export default function App() {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [subscriptions, setSubscriptions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [isRender, setIsRender] = useState(false);
   const login = () => {
     setIsAuthenticated(true);
@@ -57,27 +57,29 @@ export default function App() {
       if (token === null) {
         localStorage.setItem("auth-token", "");
         token = "";
+        setIsRender(true);
+      } else {
+        const tokenRes = await api.validate(token);
+        // console.log(tokenRes);
+        if (tokenRes.data) {
+          const userRes = await api.fetchStudent(token);
+          // console.log(userRes);
+          setUserData({
+            token,
+            user: userRes.data._id,
+          });
+
+          login();
+        }
+        setIsRender(true);
       }
-      const tokenRes = await api.validate(token);
-      // console.log(tokenRes);
-      if (tokenRes.data) {
-        const userRes = await api.fetchStudent(token);
-        // console.log(userRes);
-        setUserData({
-          token,
-          user: userRes.data._id,
-        });
-        setLoading(false);
-        login();
-      }
-      setLoading(false);
     };
-    setLoading(false);
-    const timer = setTimeout(() => {
-      setIsRender(true);
-      checkLoggedIn();
-    }, 1000);
-    return () => clearTimeout(timer);
+
+    checkLoggedIn();
+    // const timer = setTimeout(() => {
+    //   setIsRender(true);
+    // }, 2000);
+    // return () => clearTimeout(timer);
   }, []);
 
   return (
