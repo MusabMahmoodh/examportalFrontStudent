@@ -20,26 +20,12 @@ import Dashboard from "./routes/Dashboard";
 import TryQuestion from "./routes/TryQuestion";
 import SeeScores from "./routes/SeeScores";
 import Notifications from "./routes/Notifications";
-
+import Footer from "./components/layout/Footer";
 import Login from "./components/auth/Login";
 import PreLoader from "./components/layout/PreLoader";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
+
 import UserContext from "./context/StudentContext.js";
 toast.configure();
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://t.me/joinchat/TFfuiWqnwjRWqofG ">
-        Quiz masters
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 export default function App() {
   const [userData, setUserData] = useState({
@@ -179,8 +165,8 @@ export default function App() {
                 </Route>
               </Switch>
             </Container>
-            <Copyright style={{ position: "absolute", bottom: "0" }} />
           </UserContext.Provider>
+          {/* <Footer /> */}
         </Router>
       ) : (
         <PreLoader />

@@ -22,7 +22,7 @@
 }
 @media (prefers-reduced-motion: no-preference) {
   .App-logo ,.App-logo-pre{
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 2s linear;
     
   }
 }
@@ -44,10 +44,10 @@
 
 @keyframes App-logo-spin {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
   }
   to {
-    transform: rotate(360deg);
+    opacity: 100% ;
   }
 }
 
@@ -78,7 +78,7 @@
   overflow: hidden;
   height: 100%;
   bottom: -1px;
-  background-image: linear-gradient(to top, #FA6913 20%, #FA9A66 80%);
+  background-image: linear-gradient(to top,  #FA9A66 20%, #000 80%);
 }
 .bgTop {
   z-index: 15;

@@ -1,12 +1,13 @@
 import React from "react";
 import logo from "../../assets/logo.png";
+import wave from "../../assets/wave-mid-min.png";
 const PreLoader = () => {
   return (
     <div
       style={{
         margin: "äuto",
 
-        background: "black",
+        background: "#424242",
         width: "100%",
         height: "100%",
         position: "absolute",
@@ -38,6 +39,11 @@ const PreLoader = () => {
         >
           QUIZ MASTERS
         </h2>
+        <img
+          src={wave}
+          alt="wave"
+          style={{ position: "absolute", bottom: "0" }}
+        />
       </div>
     </div>
   );

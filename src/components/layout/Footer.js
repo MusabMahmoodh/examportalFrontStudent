@@ -5,15 +5,17 @@ const Footer = () => {
   return (
     <div
       style={{
-        position: "absolute",
-        bottom: "-25px",
-        left: "0",
-        right: "0",
-        border: "solid black 2px",
+        position: "fixed",
+        top: "90%",
+        right: "0px",
+
         margin: "0",
+        padding: "2px",
+
+        background: "#BCBCBC",
       }}
     >
-      <Typography variant="body2" color="textSecondary" align="center">
+      <Typography variant="body2" color="default" align="center">
         {"Copyright © "}
         <Link color="inherit" href="https://t.me/joinchat/TFfuiWqnwjRWqofG ">
           Quiz masters
