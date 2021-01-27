@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, {  useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Badge from "@material-ui/core/Badge";
 import MailIcon from "@material-ui/icons/Mail";
+import { useHistory } from "react-router-dom";
+import UserContext from "../../../context/StudentContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,12 +15,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NotificationHandler() {
   const classes = useStyles();
-  const [notifications, setNotifications] = useState([]);
+  const { notifications } = useContext(UserContext);
+  let history = useHistory();
 
+  
   return (
     <div className={classes.root}>
       <Badge color="secondary" badgeContent={notifications.length}>
-        <MailIcon style={{ color: "white" }} />
+        <MailIcon
+          style={{ color: "white" }}
+          onClick={() => history.push("/notifications")}
+        />
       </Badge>
     </div>
   );

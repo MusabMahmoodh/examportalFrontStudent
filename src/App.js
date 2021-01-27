@@ -19,6 +19,8 @@ import ExamPaper from "./routes/ExamPaper";
 import Dashboard from "./routes/Dashboard";
 import TryQuestion from "./routes/TryQuestion";
 import SeeScores from "./routes/SeeScores";
+import Notifications from "./routes/Notifications";
+
 import Login from "./components/auth/Login";
 import PreLoader from "./components/layout/PreLoader";
 import Typography from "@material-ui/core/Typography";
@@ -44,6 +46,7 @@ export default function App() {
     token: undefined,
     user: undefined,
   });
+  const [notifications, setNotifications] = useState([]);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [subscriptions, setSubscriptions] = useState([]);
@@ -105,6 +108,8 @@ export default function App() {
               subscriptions,
               setSubscriptions,
               login,
+              notifications,
+              setNotifications,
             }}
           >
             <Header />
@@ -112,6 +117,7 @@ export default function App() {
             <Container maxWidth="sm">
               <Switch>
                 {/* First route */}
+                {console.log("render")}
                 <Route path="/" exact>
                   {isAuthenticated ? (
                     <Redirect to="/dashboard" />
@@ -134,6 +140,14 @@ export default function App() {
                   path="/scores"
                   logout={logout}
                   component={SeeScores}
+                />
+
+                <ProtectedRoute
+                  exact
+                  isAuthenticated={isAuthenticated}
+                  path="/notifications"
+                  logout={logout}
+                  component={Notifications}
                 />
                 <ProtectedRoute
                   exact
@@ -159,6 +173,7 @@ export default function App() {
                 {/* Non exist */}
                 {/* <Route path="/dashboard" component={Home} /> */}
                 <Route path="/login" component={Login} />
+
                 <Route path="*">
                   <div>404 Not found </div>
                 </Route>

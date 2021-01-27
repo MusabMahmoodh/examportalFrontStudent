@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -6,7 +6,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-
+import * as apiNotification from "../../API/notificationApi";
 import CloseIcon from "@material-ui/icons/Close";
 import Logo from "../layout/Logo";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   let history = useHistory();
-
+  const { userData, setNotifications } = useContext(UserContext);
   const classes = useStyles();
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -49,8 +49,45 @@ export default function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await apiNotification.fetchNotifications(
+          userData.token
+        );
+        setNotifications(response.data[0].notifications);
+        // console.log(response);
+        console.log(response.data[0].notifications);
+        // setSubscriptions(response.data[0].subscriptions.reverse());
+        // setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  const { userData, setUserData } = useContext(UserContext);
+    userData && fetchData();
+  }, [userData]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await apiNotification.fetchNotifications(
+          userData.token
+        );
+        setNotifications(response.data[0].notifications);
+        // console.log(response);
+        console.log(response.data[0].notifications);
+        // setSubscriptions(response.data[0].subscriptions.reverse());
+        // setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const interval = setInterval(() => {
+      userData && fetchData();
+    }, 15000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className={classes.root}>
       <AppBar
