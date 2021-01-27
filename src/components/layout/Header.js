@@ -86,7 +86,7 @@ export default function Header() {
             aria-label="menu"
             onClick={() => history.push("/dashboard")}
           >
-            <Logo />
+            <Logo className="App-logo" />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             QUIZ MASTERS

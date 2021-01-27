@@ -13,9 +13,10 @@
 }
 
 .App-logo {
-  height: 10vmin;
+  height: 40px;
   pointer-events: none;
   z-index: 1000;
+  width: 40px;
 }
 .App-logo-pre{
   height: 50vmin;

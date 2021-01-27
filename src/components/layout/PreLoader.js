@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/logo.png";
+
 import wave from "../../assets/wave-mid-min.png";
 const PreLoader = () => {
   return (
@@ -28,8 +28,6 @@ const PreLoader = () => {
           flexWrap: "wrap",
         }}
       >
-        <img className="App-logo-pre" src={logo} alt="logo" />
-
         <h2
           style={{
             textAlign: "center",
