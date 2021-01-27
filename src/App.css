@@ -15,17 +15,14 @@
 .App-logo {
   height: 10vmin;
   pointer-events: none;
+  z-index: 1000;
 }
 .App-logo-pre{
   height: 50vmin;
+  z-index: 1000;
   
 }
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo ,.App-logo-pre{
-    animation: App-logo-spin infinite 2s linear;
-    
-  }
-}
+
 
 .App-header {
   background-color: #282c34;
@@ -42,14 +39,7 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 100% ;
-  }
-}
+
 
 @keyframes move_wave {
   0% {
