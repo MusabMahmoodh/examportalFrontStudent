@@ -1,4 +1,4 @@
-import React, {  useContext } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Badge from "@material-ui/core/Badge";
 import MailIcon from "@material-ui/icons/Mail";
@@ -18,14 +18,13 @@ export default function NotificationHandler() {
   const { notifications } = useContext(UserContext);
   let history = useHistory();
 
-  
   return (
-    <div className={classes.root}>
+    <div
+      className={classes.root}
+      onClick={() => history.push("/notifications")}
+    >
       <Badge color="secondary" badgeContent={notifications.length}>
-        <MailIcon
-          style={{ color: "white" }}
-          onClick={() => history.push("/notifications")}
-        />
+        <MailIcon style={{ color: "white" }} />
       </Badge>
     </div>
   );

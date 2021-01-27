@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import Grid from "@material-ui/core/Grid";
@@ -57,6 +57,7 @@ export default function InteractiveList() {
                     <Notification
                       notif={notif}
                       removeNotification={removeNotification}
+                      key={notif._id}
                     />
                   ))
               ) : (

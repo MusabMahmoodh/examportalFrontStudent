@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { Row, Col } from "react-bootstrap";
+
 import { BeatLoader } from "react-spinners";
 import * as api from "../../API/api";
 import ScoreCard from "../scores/ScoreCard";

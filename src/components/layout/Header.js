@@ -34,13 +34,9 @@ export default function Header() {
   let history = useHistory();
   const { userData, setNotifications } = useContext(UserContext);
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -49,24 +45,7 @@ export default function Header() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await apiNotification.fetchNotifications(
-          userData.token
-        );
-        setNotifications(response.data[0].notifications);
-        // console.log(response);
-        console.log(response.data[0].notifications);
-        // setSubscriptions(response.data[0].subscriptions.reverse());
-        // setLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
 
-    userData && fetchData();
-  }, [userData]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,7 +54,7 @@ export default function Header() {
         );
         setNotifications(response.data[0].notifications);
         // console.log(response);
-        console.log(response.data[0].notifications);
+        // console.log(response.data[0].notifications);
         // setSubscriptions(response.data[0].subscriptions.reverse());
         // setLoading(false);
       } catch (error) {
@@ -84,9 +63,9 @@ export default function Header() {
     };
     const interval = setInterval(() => {
       userData && fetchData();
-    }, 15000);
+    }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [userData]);
 
   return (
     <div className={classes.root}>
@@ -105,6 +84,7 @@ export default function Header() {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
+            onClick={() => history.push("/dashboard")}
           >
             <Logo />
           </IconButton>

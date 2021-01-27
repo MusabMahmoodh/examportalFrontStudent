@@ -44,11 +44,7 @@ const SubscriptionCard = ({ subscription }) => {
       onClick={() => history.push(`/subscription/${subscription._id}`)}
     >
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="https://source.unsplash.com/random/400x100"
-          title="Question"
-        >
+        <CardMedia className={classes.media} title="Question">
           <div
             style={{
               position: "absolute",

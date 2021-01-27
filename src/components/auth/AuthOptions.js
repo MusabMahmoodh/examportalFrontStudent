@@ -9,7 +9,6 @@ export default function AuthOptions() {
 
   const history = useHistory();
 
-  const login = () => history.push("/login");
   const logoutUser = () => {
     setUserData({
       token: undefined,

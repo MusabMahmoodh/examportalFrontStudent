@@ -42,7 +42,7 @@ const Subscriptions = () => {
         {/* {console.log(subscriptions)} */}
         {subscriptions &&
           subscriptions.map((sub) => (
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} key={sub._id}>
               <SubscriptionCard
                 subscription={sub}
                 colorChange={() => colorChange}

@@ -20,7 +20,7 @@ import Dashboard from "./routes/Dashboard";
 import TryQuestion from "./routes/TryQuestion";
 import SeeScores from "./routes/SeeScores";
 import Notifications from "./routes/Notifications";
-import Footer from "./components/layout/Footer";
+
 import Login from "./components/auth/Login";
 import PreLoader from "./components/layout/PreLoader";
 
@@ -76,7 +76,7 @@ export default function App() {
     const timer = setTimeout(() => {
       setIsRender(true);
       checkLoggedIn();
-    }, 2000);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -103,7 +103,7 @@ export default function App() {
             <Container maxWidth="sm">
               <Switch>
                 {/* First route */}
-                {console.log("render")}
+                {/* {console.log("render")} */}
                 <Route path="/" exact>
                   {isAuthenticated ? (
                     <Redirect to="/dashboard" />
