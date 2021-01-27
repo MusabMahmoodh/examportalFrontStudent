@@ -63,8 +63,25 @@ export default function Header() {
     };
     const interval = setInterval(() => {
       userData && fetchData();
-    }, 5000);
+    }, 15000);
     return () => clearInterval(interval);
+  }, [userData]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await apiNotification.fetchNotifications(
+          userData.token
+        );
+        setNotifications(response.data[0].notifications);
+        // console.log(response);
+        // console.log(response.data[0].notifications);
+        // setSubscriptions(response.data[0].subscriptions.reverse());
+        // setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    userData && fetchData();
   }, [userData]);
 
   return (
