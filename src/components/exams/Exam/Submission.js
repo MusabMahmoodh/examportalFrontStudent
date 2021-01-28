@@ -1,22 +1,40 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
 import FileBase from "react-file-base64";
 import * as api from "../../../API/api";
 import UserContext from "../../../context/StudentContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useHistory } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 
-const Submission = ({ ex_id, endTime }) => {
+import { makeStyles } from "@material-ui/core/styles";
+import Alert from "../../partials/alert";
+import InputLabel from "@material-ui/core/InputLabel";
+
+import FormControl from "@material-ui/core/FormControl";
+
+import Button from "@material-ui/core/Button";
+
+import SaveIcon from "@material-ui/icons/Save";
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+  button: {
+    marginRight: theme.spacing(6),
+  },
+}));
+
+export default function Submission({ ex_id, endTime }) {
+  const classes = useStyles();
+
   const [submission, setSubmission] = useState(null);
   const { userData } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
   const [attempted, setAttempted] = useState(false);
   let history = useHistory();
-
   const override = css`
     position: absolute;
     top: 50%;
@@ -103,35 +121,45 @@ const Submission = ({ ex_id, endTime }) => {
     }
   };
   return (
-    <>
+    <div>
       {attempted ? (
-        <h5>Already submitted</h5>
+        <div>
+          <div>
+            <Alert type="success" message="Already submitted" />
+          </div>
+        </div>
       ) : (
-        <Form.Group controlId="exampleForm.ControlInput1">
-          <Form.Label>Submit your answers</Form.Label>
-          <br />
-          <FileBase
-            type="file"
-            multiple={false}
-            accept=".pdf,.jpeg,.png"
-            onDone={(base64) => setSubmission(base64)}
-          />
-          <br />
-          <Button
-            className="secondary"
-            size="sm"
-            type="submit"
-            onClick={handleSubmit}
-            block
-          >
-            Submit
-          </Button>
-        </Form.Group>
+        <>
+          <FormControl className={classes.margin}>
+            <InputLabel htmlFor="Enter time taken">
+              Enter Time taken(in minutes)
+            </InputLabel>
+            <FileBase
+              type="file"
+              multiple={false}
+              accept=".pdf,.jpeg,.png"
+              onDone={(base64) => setSubmission(base64)}
+            />
+          </FormControl>
+
+          <div>
+            <Button
+              variant="contained"
+              color="default"
+              className={classes.button}
+              startIcon={<SaveIcon />}
+              type="submit"
+              onClick={handleSubmit}
+              style={{
+                float: "right",
+              }}
+            >
+              Upload
+            </Button>
+          </div>
+        </>
       )}
-
       <BeatLoader loading={loading} size={24} color="orange" css={override} />
-    </>
+    </div>
   );
-};
-
-export default Submission;
+}

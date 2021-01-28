@@ -1,6 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
-
 import * as api from "../../../API/api";
 import UserContext from "../../../context/StudentContext";
 import { toast } from "react-toastify";
@@ -9,8 +7,28 @@ import { BeatLoader } from "react-spinners";
 import { css } from "@emotion/react";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import Alert from "../../partials/alert";
+import { makeStyles } from "@material-ui/core/styles";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import FormControl from "@material-ui/core/FormControl";
 
-const AddMarks = ({ ex_id, endTime }) => {
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Button from "@material-ui/core/Button";
+
+import SaveIcon from "@material-ui/icons/Save";
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+  button: {
+    marginRight: theme.spacing(6),
+  },
+}));
+
+export default function AddMarks({ ex_id, endTime }) {
+  const classes = useStyles();
   const [scores, setScores] = useState(0);
   const { userData } = useContext(UserContext);
   const [loading, setLoading] = useState(true);
@@ -112,102 +130,66 @@ const AddMarks = ({ ex_id, endTime }) => {
     }
   };
   return (
-    <>
-      <Form.Group controlId="exampleForm.ControlInput1">
-        {attempted ? (
+    <div>
+      {attempted ? (
+        <div>
+          <Alert type="success" message="Already submitted" />
+        </div>
+      ) : (
+        <>
+          <FormControl className={classes.margin}>
+            <InputLabel htmlFor="Enter marks">Enter marks</InputLabel>
+            <Input
+              type="number"
+              id="input-with-icon-adornment"
+              value={scores}
+              onChange={(e) => setScores(e.target.value)}
+              startAdornment={
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+          <FormControl className={classes.margin}>
+            <InputLabel htmlFor="Enter time taken">
+              Enter Time taken(in minutes)
+            </InputLabel>
+            <Input
+              id="input-with-icon-adornment"
+              type="number"
+              max="100"
+              min="0"
+              value={duration.minutes}
+              onChange={(e) =>
+                setDuration({ ...duration, minutes: e.target.value })
+              }
+              startAdornment={
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+
           <div>
-            <h5>Already submitted</h5>
-            <Form.Group>
-              <Form.Label>Scores</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="enter your scores here"
-                value={scores}
-                readOnly
-              />
-            </Form.Group>
-            <Form.Row>
-              <Form.Label>Duration:</Form.Label>
-              <br />
-              <Form.Group>
-                <Form.Label>Hours</Form.Label>
-                <Form.Control
-                  size="sm"
-                  type="number"
-                  placeholder="Hours"
-                  readOnly
-                  value={duration.hour}
-                />
-              </Form.Group>
-              <br></br>
-              <Form.Group>
-                <Form.Label>Minutes</Form.Label>
-                <Form.Control
-                  size="sm"
-                  type="number"
-                  placeholder="minutes"
-                  readOnly
-                  value={duration.minutes}
-                />
-              </Form.Group>
-            </Form.Row>
-          </div>
-        ) : (
-          <div>
-            <Form.Group>
-              <Form.Label>Scores</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="enter your scores here"
-                value={scores}
-                onChange={(e) => setScores(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Row>
-              <Form.Label>Duration</Form.Label>
-              <br />
-              <Form.Group>
-                <Form.Control
-                  size="sm"
-                  type="number"
-                  placeholder="Hours"
-                  max="8"
-                  min="0"
-                  value={duration.hour}
-                  onChange={(e) =>
-                    setDuration({ ...duration, hour: e.target.value })
-                  }
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Control
-                  size="sm"
-                  type="number"
-                  placeholder="minutes"
-                  max="100"
-                  min="0"
-                  value={duration.minutes}
-                  onChange={(e) =>
-                    setDuration({ ...duration, minutes: e.target.value })
-                  }
-                />
-              </Form.Group>
-            </Form.Row>
             <Button
-              className="secondary"
-              size="sm"
+              variant="contained"
+              color="default"
+              className={classes.button}
+              startIcon={<SaveIcon />}
               type="submit"
               onClick={handleSubmit}
-              block
+              style={{
+                float: "right",
+              }}
             >
-              Submit
+              Save
             </Button>
           </div>
-        )}
-      </Form.Group>
+        </>
+      )}
       <BeatLoader loading={loading} size={24} color="orange" css={override} />
-    </>
+    </div>
   );
-};
-
-export default AddMarks;
+}

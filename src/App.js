@@ -102,7 +102,12 @@ export default function App() {
           >
             <Header />
 
-            <Container maxWidth="sm">
+            <Container
+              maxWidth="sm"
+              style={{
+                marginTop: "100px",
+              }}
+            >
               <Switch>
                 {/* First route */}
                 {/* {console.log("render")} */}

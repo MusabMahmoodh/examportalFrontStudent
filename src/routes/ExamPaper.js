@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Tabs, Tab, Alert } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
 import Question from "../components/exams/Exam/Question";
@@ -10,8 +10,69 @@ import * as api from "../API/api";
 import UserContext from "../context/StudentContext";
 import timeDifferent from "../components/utils/timeDifferent";
 import moment from "moment";
+import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import PhoneIcon from "@material-ui/icons/Phone";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
-const ExamPaper = () => {
+import PersonPinIcon from "@material-ui/icons/PersonPin";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`scrollable-force-tabpanel-${index}`}
+      aria-labelledby={`scrollable-force-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `scrollable-force-tab-${index}`,
+    "aria-controls": `scrollable-force-tabpanel-${index}`,
+  };
+}
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    width: "100%",
+    backgroundColor: theme.palette.background.paper,
+  },
+  indicator: {
+    background: "#FA9A66",
+  },
+}));
+
+export default function ExamPaper() {
+  const classes = useStyles();
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
   const { id } = useParams();
   const [exam, setExam] = useState([]);
   const { userData } = useContext(UserContext);
@@ -48,18 +109,54 @@ const ExamPaper = () => {
         Time left:{"  "}
         {timeLeft}{" "}
       </h3>
-      <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
-        <Tab eventKey="home" title="Question">
+      <div className={classes.root}>
+        <AppBar position="static" color="default">
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            variant="scrollable"
+            scrollButtons="on"
+            classes={{
+              indicator: classes.indicator,
+            }}
+            aria-label="scrollable force tabs example"
+          >
+            <Tab
+              label="Item One"
+              icon={
+                <PhoneIcon
+                  style={{
+                    color: "#FA9A66",
+                  }}
+                />
+              }
+              {...a11yProps(0)}
+            />
+            <Tab label="Item Two" icon={<FavoriteIcon />} {...a11yProps(1)} />
+            <Tab
+              label="Item Three"
+              icon={
+                <PersonPinIcon
+                  style={{
+                    color: "#FA9A66",
+                  }}
+                />
+              }
+              {...a11yProps(2)}
+            />
+          </Tabs>
+        </AppBar>
+        <TabPanel value={value} index={0}>
           <Question exam={exam} />{" "}
-        </Tab>
-        <Tab eventKey="profile" title="Submission">
+        </TabPanel>
+        <TabPanel value={value} index={1}>
           {moment().format() < exam.end_time ? (
             <Submission ex_id={exam._id} endTime={exam.end_time} />
           ) : (
             <Alert variant="danger">Exam has been ended</Alert>
           )}
-        </Tab>
-        <Tab eventKey="contact" title="Solution">
+        </TabPanel>
+        <TabPanel value={value} index={2}>
           {moment().format() > exam.end_time ? (
             <Solution exam={exam} />
           ) : (
@@ -67,11 +164,9 @@ const ExamPaper = () => {
               Solutions are not currently avaialble
             </Alert>
           )}
-        </Tab>
-      </Tabs>
+        </TabPanel>
+      </div>
       <PacmanLoader loading={loading} size={24} color="green" css={override} />
     </>
   );
-};
-
-export default ExamPaper;
+}

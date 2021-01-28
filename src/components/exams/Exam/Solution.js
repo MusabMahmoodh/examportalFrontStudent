@@ -1,14 +1,12 @@
-import React from "react";
-import { Card } from "react-bootstrap";
-const Solution = ({ exam }) => {
+export default function Solution({ exam }) {
   return (
-    <Card>
-      <Card.Img
-        variant="bottom"
+    <div>
+      <img
         src={exam.answer === undefined ? null : exam.answer.imageBase64}
+        width="100%"
+        height="auto"
+        alt={exam.name}
       />
-    </Card>
+    </div>
   );
-};
-
-export default Solution;
+}

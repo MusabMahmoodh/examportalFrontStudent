@@ -1,38 +1,48 @@
 import React from "react";
-import { ListGroup, Card, Accordion, Button } from "react-bootstrap";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
 
-const Summary = ({ totalMarks, totalTime, totalQuestions }) => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    overflow: "hidden",
+    padding: theme.spacing(0, 3),
+  },
+  paper: {
+    maxWidth: 400,
+    margin: `${theme.spacing(1)}px auto`,
+    padding: theme.spacing(2),
+  },
+}));
+
+export default function Summary({ totalMarks, totalTime, totalQuestions }) {
+  const classes = useStyles();
+
   return (
-    <Accordion
-      style={{
-        marginBottom: "10px",
-      }}
-    >
-      <Card>
-        <Card.Header>
-          <Accordion.Toggle as={Button} variant="secondary" eventKey="1">
-            Click here to see summary
-          </Accordion.Toggle>
-        </Card.Header>
-        <Accordion.Collapse eventKey="1">
-          <ListGroup as="ul">
-            <ListGroup.Item as="li" variant="info">
-              Total marks ={totalMarks}
-            </ListGroup.Item>
-            <ListGroup.Item as="li" variant="info">
-              Average marks = {totalMarks / totalQuestions}
-            </ListGroup.Item>
-            <ListGroup.Item as="li" variant="info">
-              Total time taken = {totalTime} minutes
-            </ListGroup.Item>
-            <ListGroup.Item as="li" variant="info">
-              Average time = {totalTime / totalQuestions} minutes per question
-            </ListGroup.Item>
-          </ListGroup>
-        </Accordion.Collapse>
-      </Card>
-    </Accordion>
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Grid container wrap="nowrap" spacing={2}>
+          <Grid item>
+            <Avatar>💎</Avatar>
+          </Grid>
+          <Grid item xs zeroMinWidth>
+            <Typography noWrap>{`Total marks: ${totalMarks}`}</Typography>
+          </Grid>
+        </Grid>
+      </Paper>
+      <Paper className={classes.paper}>
+        <Grid container wrap="nowrap" spacing={2}>
+          <Grid item>
+            <Avatar>🎉</Avatar>
+          </Grid>
+          <Grid item xs zeroMinWidth>
+            <Typography noWrap>{`Total time taken: ${totalTime}`}</Typography>
+          </Grid>
+        </Grid>
+      </Paper>
+    </div>
   );
-};
-
-export default Summary;
+}

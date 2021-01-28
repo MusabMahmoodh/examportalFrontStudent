@@ -62,7 +62,7 @@ export default function Header() {
       }
     };
     const interval = setInterval(() => {
-      userData && fetchData();
+      userData.user && fetchData();
     }, 15000);
     return () => clearInterval(interval);
   }, [userData]);
@@ -81,7 +81,7 @@ export default function Header() {
         console.log(error);
       }
     };
-    userData && fetchData();
+    userData.user && fetchData();
   }, [userData]);
 
   return (
@@ -91,8 +91,9 @@ export default function Header() {
           background: "#000000",
           padding: "1em",
           marginBottom: "20px",
-          position: "sticky",
+          position: "fixed",
           top: "0",
+          height: "85px",
         }}
       >
         <Toolbar>

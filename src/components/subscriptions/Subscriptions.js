@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import UserContext from "../../context/StudentContext";
 import colorChange from "../utils/randomColor";
+import Alert from "../partials/alert";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -40,7 +41,8 @@ const Subscriptions = () => {
     <div className={classes.root} style={{ marginBottom: "30px" }}>
       <Grid container spacing={3}>
         {/* {console.log(subscriptions)} */}
-        {subscriptions &&
+
+        {subscriptions.length > 0 ? (
           subscriptions.map((sub) => (
             <Grid item xs={12} sm={6} key={sub._id}>
               <SubscriptionCard
@@ -48,7 +50,13 @@ const Subscriptions = () => {
                 colorChange={() => colorChange}
               />
             </Grid>
-          ))}
+          ))
+        ) : (
+          <Alert
+            type="warning"
+            message="You have not enrolled to any exams yet"
+          />
+        )}
       </Grid>
       <BeatLoader loading={loading} size={24} color="green" css={override} />
     </div>

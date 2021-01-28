@@ -1,13 +1,12 @@
 import React from "react";
-
-import wave from "../../assets/wave-mid-min.png";
+import Footer from "../../components/layout/Footer";
 const PreLoader = () => {
   return (
     <div
       style={{
         margin: "äuto",
 
-        background: "#424242",
+        backgroundImage: "linear-gradient(to top,  #FA9A66 20%, #000 80%)",
         width: "100%",
         height: "100%",
         position: "absolute",
@@ -18,6 +17,7 @@ const PreLoader = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        flexDirection: "column",
       }}
     >
       <div
@@ -37,11 +37,28 @@ const PreLoader = () => {
         >
           QUIZ MASTERS
         </h2>
-        <img
-          src={wave}
-          alt="wave"
-          style={{ position: "absolute", bottom: "0" }}
-        />
+      </div>
+
+      <div>
+        <h5
+          style={{
+            textAlign: "center",
+            marginTop: "10px",
+            color: "#EFF3CD",
+          }}
+        >
+          V 1.0.2
+        </h5>
+      </div>
+
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "10px",
+          color: "#EFF3CD",
+        }}
+      >
+        <Footer />
       </div>
     </div>
   );
