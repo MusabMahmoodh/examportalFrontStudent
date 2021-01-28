@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Alert } from "react-bootstrap";
+
 import { useParams } from "react-router-dom";
 import { PacmanLoader } from "react-spinners";
 import Question from "../components/exams/Exam/Question";
@@ -17,7 +17,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import PhoneIcon from "@material-ui/icons/Phone";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-
+import Alert from "../components/partials/alert"
 import PersonPinIcon from "@material-ui/icons/PersonPin";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
